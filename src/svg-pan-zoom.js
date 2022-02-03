@@ -28,6 +28,7 @@ var optionsDefaults = {
   beforePan: null,
   onPan: null,
   customEventsHandler: null,
+  mouseWheelEventFilter: null,
   eventsListenerElement: null,
   onUpdatedCTM: null
 };
@@ -245,6 +246,13 @@ SvgPanZoom.prototype.disableMouseWheelZoom = function() {
  */
 SvgPanZoom.prototype.handleMouseWheel = function(evt) {
   if (!this.options.zoomEnabled || this.state !== "none") {
+    return;
+  }
+
+  if (
+    this.options.mouseWheelEventFilter != null &&
+    !this.options.mouseWheelEventFilter(evt)
+  ) {
     return;
   }
 

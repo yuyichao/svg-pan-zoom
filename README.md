@@ -112,6 +112,7 @@ svgPanZoom('#demo-tiger', {
 , onPan: function(){}
 , onUpdatedCTM: function(){}
 , customEventsHandler: {}
+, mouseWheelEventFilter: function(){}
 , eventsListenerElement: null
 });
 ```
@@ -136,6 +137,7 @@ If any arguments are specified, they must have the following value types:
 * 'beforePan' must be a callback function to be called before pan changes.
 * 'onPan' must be a callback function to be called when pan changes.
 * 'customEventsHandler' must be an object with `init` and `destroy` arguments as functions.
+* 'mouseWheelEventFilter' must be a callback function to be called before mouse wheel events are handled.
 * 'eventsListenerElement' must be an SVGElement or null.
 
 `beforeZoom` will be called with 2 float attributes: oldZoom and newZoom.
@@ -164,6 +166,10 @@ You can alter panning on X and Y axes by providing alternative values through re
 `panEnabled` and `zoomEnabled` are related only to user interaction. If any of this options are disabled - you still can zoom and pan via API.
 
 `fit` takes precedence over `contain`. So if you set `fit: true` then `contain`'s value doesn't matter.
+
+`mouseWheelEventFilter` will be called with the mouse wheel event if mouse wheel zoom is enabled.
+If the function returns `false` then the mouse wheel event won't be handled, and the zooming
+will be halted.
 
 Embedding remote files
 ---------------------
